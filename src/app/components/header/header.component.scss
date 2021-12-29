@@ -1,0 +1,16 @@
+@use "../../../assets/colors" as colors;
+
+header {
+  color: colors.$veryDarkBlue;
+  nav {
+    a {
+      text-decoration: none;
+      > * {
+        cursor: pointer;
+      }
+      :hover {
+        font-size: large;
+      }
+    }
+  }
+}
