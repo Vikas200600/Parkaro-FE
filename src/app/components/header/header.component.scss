@@ -2,11 +2,16 @@
 
 header {
   color: colors.$veryDarkBlue;
+  h1 {
+    cursor: pointer;
+  }
   nav {
     a {
       text-decoration: none;
       > * {
+        color: colors.$veryDarkBlue;
         cursor: pointer;
+        margin: 0;
       }
       :hover {
         font-size: large;
