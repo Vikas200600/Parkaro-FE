@@ -1,15 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-allot',
   templateUrl: './allot.component.html',
-  styleUrls: ['./allot.component.scss']
+  styleUrls: ['./allot.component.scss'],
 })
 export class AllotComponent implements OnInit {
+  allotForm: FormGroup;
 
-  constructor() { }
+  typeData: string[] = ['2W', '4W'];
+  availableLots: string[] = ['a', 'b'];
 
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder) {
+    this.allotForm = this.fb.group({
+      regNo: ['', Validators.required],
+      type: ['', Validators.required],
+      lotName: ['', Validators.required],
+      duration: [''],
+    });
   }
 
+  ngOnInit(): void {}
 }

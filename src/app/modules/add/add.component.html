@@ -1,0 +1,41 @@
+<div class="container my-5 w-50">
+  <mat-card class="form">
+    <mat-card-header><h2>Add Parking Lot</h2></mat-card-header>
+    <form [formGroup]="addForm">
+      <mat-card-content class="d-flex flex-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Lot Name</mat-label>
+          <input matInput autocomplete="off" formControlName="name" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Select Vehicle Type</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let type of typeData" [value]="type">{{
+              type
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="form-btn d-flex justify-content-center align-items-center">
+          <button
+            mat-raised-button
+            type="submit"
+            [disabled]="!addForm.valid"
+            class="me-1"
+          >
+            SUBMIT
+          </button>
+          <button
+            class="btn-cancel"
+            mat-raised-button
+            routerLink="/"
+            class="ms-1"
+          >
+            Cancel
+          </button>
+        </div>
+      </mat-card-content>
+    </form>
+  </mat-card>
+</div>

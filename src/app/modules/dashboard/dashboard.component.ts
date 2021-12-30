@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
       this.time = new Date().toTimeString().split(' ')[0];
     }, 1000);
 
-    this.lotService.fetchUpdatedLots();
+    // this.lotService.fetchUpdatedLots();
     this.setLotData();
   }
 

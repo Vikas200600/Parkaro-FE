@@ -1,0 +1,55 @@
+<div class="container my-5 w-50">
+  <mat-card class="form">
+    <mat-card-header><h2>Allot Parking</h2></mat-card-header>
+    <form [formGroup]="allotForm">
+      <mat-card-content class="d-flex flex-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Reg No</mat-label>
+          <input matInput autocomplete="off" formControlName="regNo" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Select Vehicle Type</mat-label>
+          <mat-select formControlName="type">
+            <mat-option *ngFor="let type of typeData" [value]="type">{{
+              type
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Select Parking Lot</mat-label>
+          <mat-select formControlName="lotName">
+            <mat-option *ngFor="let lot of availableLots" [value]="lot">{{
+              lot
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Duration in Hours</mat-label>
+          <input matInput autocomplete="off" formControlName="duration" />
+        </mat-form-field>
+
+        <div class="form-btn d-flex justify-content-center align-items-center">
+          <button
+            mat-raised-button
+            type="submit"
+            [disabled]="!allotForm.valid"
+            class="me-1"
+          >
+            SUBMIT
+          </button>
+          <button
+            class="btn-cancel"
+            mat-raised-button
+            routerLink="/"
+            class="ms-1"
+          >
+            Cancel
+          </button>
+        </div>
+      </mat-card-content>
+    </form>
+  </mat-card>
+</div>
