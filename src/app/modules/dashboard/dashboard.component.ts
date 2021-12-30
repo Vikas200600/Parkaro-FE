@@ -22,9 +22,8 @@ export class DashboardComponent implements OnInit {
       this.time = new Date().toTimeString().split(' ')[0];
     }, 1000);
 
-    // this.lotService.fetchUpdatedLots();
+    this.lotService.fetchUpdatedLots();
     this.setLotData();
-    this.setStats();
   }
 
   setLotData() {
@@ -34,16 +33,18 @@ export class DashboardComponent implements OnInit {
   }
 
   setStats() {
-    this.lotData['keys'].forEach((key) => {
-      this.lotData[key].available
-        ? this.available++
-        : this.lotData[key].availableTime
-        ? this.lotData[key].availableTime - this.getNow() <= 900000 &&
-          this.lotData[key].availableTime - this.getNow() > 900000
-          ? this.availableSoon++
-          : this.overParked++
-        : this.occupied++;
-    });
+    if (this.lotData['keys'] && this.lotData['keys'].length) {
+      this.lotData['keys'].forEach((key) => {
+        this.lotData[key].available
+          ? this.available++
+          : this.lotData[key].availableTime
+          ? this.lotData[key].availableTime - this.getNow() <= 900000 &&
+            this.lotData[key].availableTime - this.getNow() > 900000
+            ? this.availableSoon++
+            : this.overParked++
+          : this.occupied++;
+      });
+    }
   }
 
   getNow(): number {
@@ -52,7 +53,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      console.log('ngOnInit - this.lotData', this.lotData);
+      this.setStats();
     }, 0);
   }
 }
