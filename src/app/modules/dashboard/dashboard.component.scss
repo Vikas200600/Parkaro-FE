@@ -1,0 +1,50 @@
+@use "../../../assets/colors";
+
+.card {
+  background-color: colors.$lightGrayishGreen;
+}
+
+.park-card {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+  &-item {
+    color: white;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-type {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+  &-ref {
+    h5 {
+      margin: 0;
+      margin-right: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      color: colors.$veryDarkBlue;
+    }
+    h5::before {
+      content: " ";
+      padding: 0 5.4px;
+      border-radius: 4px;
+      margin-right: 0.3rem;
+    }
+    h5:nth-child(1)::before {
+      background-color: #68a6c2;
+    }
+    h5:nth-child(2)::before {
+      background-color: #57ad68;
+    }
+    h5:nth-child(3)::before {
+      background-color: #ff7802;
+    }
+    h5:nth-child(4)::before {
+      background-color: #ac191b;
+    }
+  }
+}

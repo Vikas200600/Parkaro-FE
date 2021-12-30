@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row mt-3 g-2">
+    <div class="col-9">
+      <mat-card class="card park-card p-3">
+        <ng-container *ngFor="let lotId of lotData['keys']">
+          <mat-card
+            class="park-card-item"
+            [ngStyle]="{
+              'background-color': lotData[lotId].available
+                ? '#57ad68'
+                : lotData[lotId].availableTime
+                ? lotData[lotId].availableTime - getNow() <= 900000 &&
+                  lotData[lotId].availableTime - getNow() > 900000
+                  ? '#ff7802'
+                  : '#ac191b'
+                : '#68a6c2'
+            }"
+          >
+            <h2 class="m-0">{{ lotData[lotId].lotName }}</h2>
+            <h5 class="park-card-item-type me-1">
+              {{ lotData[lotId].type }}
+            </h5>
+          </mat-card>
+        </ng-container>
+      </mat-card>
+      <mat-card
+        class="card park-card-ref d-flex flex-row justify-content-end g-5"
+      >
+        <h5>Occupied</h5>
+        <h5>Available</h5>
+        <h5>Available Soon</h5>
+        <h5>Over Parked</h5>
+      </mat-card>
+    </div>
+    <div class="col-3">
+      <mat-card class="card">
+        <h2 class="m-0">{{ time }}</h2>
+        <h3>{{ today | date }}</h3>
+      </mat-card>
+      <mat-card class="card mt-2">
+        <div>Occupied Slots: {{ occupied }}</div>
+        <div>Available Slots: {{ available }}</div>
+        <div>Available Soon: {{ availableSoon }}</div>
+        <div>Over Parked: {{ overParked }}</div>
+      </mat-card>
+    </div>
+  </div>
+</div>
