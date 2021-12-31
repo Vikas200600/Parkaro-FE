@@ -9,7 +9,7 @@ export class LotService {
   lotSubject$ = new BehaviorSubject<object>({});
 
   constructor(private http: HttpClient) {
-    this.fetchUpdatedLots();
+    // this.fetchUpdatedLots();
   }
 
   fetchUpdatedLots() {
