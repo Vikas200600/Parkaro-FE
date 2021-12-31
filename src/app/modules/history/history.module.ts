@@ -3,15 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { HistoryRoutingModule } from './history-routing.module';
 import { HistoryComponent } from './history.component';
-
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
-  declarations: [
-    HistoryComponent
-  ],
-  imports: [
-    CommonModule,
-    HistoryRoutingModule
-  ]
+  declarations: [HistoryComponent],
+  imports: [CommonModule, HistoryRoutingModule, MaterialModule],
 })
-export class HistoryModule { }
+export class HistoryModule {}

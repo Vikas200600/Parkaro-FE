@@ -49,5 +49,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.setLotData();
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    // this.lotService.lotSubject$.unsubscribe();
+  }
 }

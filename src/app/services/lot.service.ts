@@ -7,14 +7,19 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class LotService {
   lotSubject$ = new BehaviorSubject<object>({});
+  parkSubject$ = new BehaviorSubject<object>({});
 
-  constructor(private http: HttpClient) {
-    // this.fetchUpdatedLots();
-  }
+  constructor(private http: HttpClient) {}
 
   fetchUpdatedLots() {
     this.http.get('/api/lots').subscribe((lotData: object) => {
       this.lotSubject$.next(lotData['data']);
+    });
+  }
+
+  fetchUpdatedParks() {
+    this.http.get('/api/parks').subscribe((parkdata: object) => {
+      this.parkSubject$.next(parkdata['data']);
     });
   }
 

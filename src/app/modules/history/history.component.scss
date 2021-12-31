@@ -1,0 +1,15 @@
+table {
+  width: 100%;
+}
+
+.mat-column {
+  &-parkingDate,
+  &-regNo,
+  &-type,
+  &-lotName,
+  &-parkingInStamp,
+  &-parkingOutStamp,
+  &-price {
+    text-align: center;
+  }
+}
