@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LotService } from 'src/app/services/lot.service';
 
 @Component({
   selector: 'app-add',
@@ -11,12 +12,16 @@ export class AddComponent implements OnInit {
 
   typeData: string[] = ['2W', '4W'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private lotService: LotService) {
     this.addForm = this.fb.group({
-      name: ['', Validators.required],
+      lotName: ['', Validators.required],
       type: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {}
+
+  submitParking() {
+    this.lotService.addParking(this.addForm.value);
+  }
 }

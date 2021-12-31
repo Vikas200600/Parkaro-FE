@@ -1,7 +1,7 @@
 <div class="container my-5 w-50">
   <mat-card class="form">
     <mat-card-header><h2>Allot Parking</h2></mat-card-header>
-    <form [formGroup]="allotForm">
+    <form [formGroup]="allotForm" (ngSubmit)="submitAllotment()">
       <mat-card-content class="d-flex flex-column">
         <mat-form-field appearance="outline">
           <mat-label>Reg No</mat-label>
@@ -10,7 +10,10 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Select Vehicle Type</mat-label>
-          <mat-select formControlName="type">
+          <mat-select
+            formControlName="type"
+            (selectionChange)="getAvailableLots()"
+          >
             <mat-option *ngFor="let type of typeData" [value]="type">{{
               type
             }}</mat-option>

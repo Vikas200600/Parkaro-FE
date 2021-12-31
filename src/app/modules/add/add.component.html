@@ -1,11 +1,11 @@
 <div class="container my-5 w-50">
   <mat-card class="form">
     <mat-card-header><h2>Add Parking Lot</h2></mat-card-header>
-    <form [formGroup]="addForm">
+    <form [formGroup]="addForm" (ngSubmit)="submitParking()">
       <mat-card-content class="d-flex flex-column">
         <mat-form-field appearance="outline">
           <mat-label>Lot Name</mat-label>
-          <input matInput autocomplete="off" formControlName="name" />
+          <input matInput autocomplete="off" formControlName="lotName" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">

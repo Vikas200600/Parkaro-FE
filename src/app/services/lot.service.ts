@@ -17,4 +17,16 @@ export class LotService {
       this.lotSubject$.next(lotData['data']);
     });
   }
+
+  fetchAvailableLots(type: string) {
+    return this.http.get(`/api/lots/${type}`);
+  }
+
+  allotParking(lotDetails: object) {
+    this.http.post('/api/parks/allot', lotDetails).subscribe();
+  }
+
+  addParking(parkingDetails: object) {
+    this.http.post('/api/lots/add', parkingDetails).subscribe();
+  }
 }
