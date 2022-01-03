@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { LotService } from 'src/app/services/lot.service';
 
 @Component({
@@ -6,7 +7,8 @@ import { LotService } from 'src/app/services/lot.service';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss'],
 })
-export class HistoryComponent implements OnInit {
+export class HistoryComponent implements OnInit, OnDestroy {
+  private destroy$: Subject<boolean> = new Subject<boolean>();
   parkData: object;
   dataSource: object[] = [];
   headers: string[] = [
@@ -20,45 +22,6 @@ export class HistoryComponent implements OnInit {
     'price',
   ];
 
-  // dataSource = [
-  //   {
-  //     id: 1,
-  //     regNo: 'KA53L7221',
-  //     type: '2W',
-  //     lotName: 'A1',
-  //     parkingInStamp: '1640760936494',
-  //     parkingOutStamp: '1640761527960',
-  //     price: 20,
-  //   },
-  //   {
-  //     id: 2,
-  //     regNo: 'KA53L7221',
-  //     type: '2W',
-  //     lotName: 'A1',
-  //     parkingInStamp: '1640760936494',
-  //     parkingOutStamp: '1640761527960',
-  //     price: 20,
-  //   },
-  //   {
-  //     id: 3,
-  //     regNo: 'KA53L7221',
-  //     type: '2W',
-  //     lotName: 'A1',
-  //     parkingInStamp: '1640760936494',
-  //     parkingOutStamp: '1640761527960',
-  //     price: 20,
-  //   },
-  //   {
-  //     id: 4,
-  //     regNo: 'KA53L7221',
-  //     type: '2W',
-  //     lotName: 'A1',
-  //     parkingInStamp: '1640760936494',
-  //     parkingOutStamp: '1640761527960',
-  //     price: 20,
-  //   },
-  // ];
-
   constructor(private lotService: LotService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -67,17 +30,19 @@ export class HistoryComponent implements OnInit {
   }
 
   setParkData() {
-    this.lotService.parkSubject$.subscribe((data) => {
-      this.parkData = data;
-      console.log(this.parkData);
-      if (this.parkData['keys'] && this.parkData['keys'].length) {
-        const _tempSource = [];
-        this.parkData['keys'].forEach((key) => {
-          _tempSource.push(this.parkData[key]);
-        });
-        this.dataSource = _tempSource;
-      }
-    });
+    this.lotService.parkSubject$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        this.parkData = data;
+        console.log(this.parkData);
+        if (this.parkData['keys'] && this.parkData['keys'].length) {
+          const _tempSource = [];
+          this.parkData['keys'].forEach((key) => {
+            _tempSource.push(this.parkData[key]);
+          });
+          this.dataSource = _tempSource;
+        }
+      });
   }
 
   getTimeString(timeStamp: number) {
@@ -87,9 +52,9 @@ export class HistoryComponent implements OnInit {
   getDateString(timeStamp: number) {
     return new Date(timeStamp).toLocaleDateString('en-GB');
   }
-}
 
-// this.parkData['keys'].forEach((key) => {
-//   _temp.push(this.parkData[key]);
-// });
-// this.dataSource = JSON.parse(JSON.stringify(_temp));
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
+}
