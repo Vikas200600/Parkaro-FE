@@ -1,4 +1,14 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Subject, takeUntil } from 'rxjs';
 import { LotService } from 'src/app/services/lot.service';
 
@@ -10,7 +20,7 @@ import { LotService } from 'src/app/services/lot.service';
 export class HistoryComponent implements OnInit, OnDestroy {
   private destroy$: Subject<boolean> = new Subject<boolean>();
   parkData: object;
-  dataSource: object[] = [];
+  dataSource: MatTableDataSource<object>;
   headers: string[] = [
     'id',
     'parkingDate',
@@ -22,27 +32,37 @@ export class HistoryComponent implements OnInit, OnDestroy {
     'price',
   ];
 
-  constructor(private lotService: LotService, private cdr: ChangeDetectorRef) {}
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(
+    private lotService: LotService,
+    private cdr: ChangeDetectorRef,
+    private _liveAnnouncer: LiveAnnouncer
+  ) {}
 
   ngOnInit(): void {
     this.lotService.fetchUpdatedParks();
     this.setParkData();
   }
-
   setParkData() {
     this.lotService.parkSubject$
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.parkData = data;
-        console.log(this.parkData);
         if (this.parkData['keys'] && this.parkData['keys'].length) {
           const _tempSource = [];
           this.parkData['keys'].forEach((key) => {
             _tempSource.push(this.parkData[key]);
           });
-          this.dataSource = _tempSource;
+          this.dataSource = new MatTableDataSource(_tempSource);
+          this.dataSource.paginator = this.paginator;
         }
       });
+  }
+
+  sortData(sort: Sort) {
+    this.dataSource.sort = this.sort;
   }
 
   getTimeString(timeStamp: number) {
