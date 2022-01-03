@@ -1,0 +1,48 @@
+<div class="container my-5 w-50">
+  <mat-card class="form">
+    <mat-card-header><h2>Deallot Parking</h2></mat-card-header>
+    <form [formGroup]="deallotForm" (ngSubmit)="submitDeallotment()">
+      <mat-card-content class="d-flex flex-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Select Mode to Deallocate</mat-label>
+          <mat-select
+            (selectionChange)="getParkedDetails()"
+            formControlName="mode"
+          >
+            <mat-option *ngFor="let mode of modeData" [value]="mode">{{
+              mode
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Select Lot</mat-label>
+          <mat-select formControlName="selected">
+            <mat-option *ngFor="let data of selectData" [value]="data['id']">{{
+              data["option"]
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div class="form-btn d-flex justify-content-center align-items-center">
+          <button
+            mat-raised-button
+            type="submit"
+            [disabled]="!deallotForm.valid"
+            class="me-1"
+          >
+            SUBMIT
+          </button>
+          <button
+            class="btn-cancel"
+            mat-raised-button
+            routerLink="/"
+            class="ms-1"
+          >
+            Cancel
+          </button>
+        </div>
+      </mat-card-content>
+    </form>
+  </mat-card>
+</div>

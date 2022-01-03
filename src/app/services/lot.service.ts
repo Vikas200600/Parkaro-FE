@@ -34,4 +34,16 @@ export class LotService {
   addParking(parkingDetails: object) {
     this.http.post('/api/lots/add', parkingDetails).subscribe();
   }
+
+  fetchOccupiedLotData() {
+    return this.http.get('/api/occupied/lots');
+  }
+
+  fetchOccupiedVehicleData() {
+    return this.http.get('/api/occupied/vehicles');
+  }
+
+  deallot(lotId: string) {
+    this.http.post('/api/parks/deallot/' + lotId, {}).subscribe();
+  }
 }

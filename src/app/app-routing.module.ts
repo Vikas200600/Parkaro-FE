@@ -16,6 +16,11 @@ const routes: Routes = [
       import('./modules/allot/allot.module').then((m) => m.AllotModule),
   },
   {
+    path: 'deallot-parking',
+    loadChildren: () =>
+      import('./modules/deallot/deallot.module').then((m) => m.DeallotModule),
+  },
+  {
     path: 'add-parking',
     loadChildren: () =>
       import('./modules/add/add.module').then((m) => m.AddModule),
