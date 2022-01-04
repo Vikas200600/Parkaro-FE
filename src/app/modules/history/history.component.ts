@@ -65,6 +65,11 @@ export class HistoryComponent implements OnInit, OnDestroy {
     this.dataSource.sort = this.sort;
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   getTimeString(timeStamp: number) {
     return new Date(timeStamp).toLocaleTimeString();
   }
