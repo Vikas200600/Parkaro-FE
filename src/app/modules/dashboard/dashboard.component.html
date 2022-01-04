@@ -15,6 +15,11 @@
                   : '#ac191b'
                 : '#68a6c2'
             }"
+            (click)="
+              lotData[lotId].available
+                ? openDialog('allot', lotData[lotId])
+                : openDialog('deallot', lotData[lotId])
+            "
           >
             <h2 class="m-0">{{ lotData[lotId].lotName }}</h2>
             <h5 class="park-card-item-type me-1">
@@ -22,6 +27,16 @@
             </h5>
           </mat-card>
         </ng-container>
+        <mat-card
+          class="park-card-item"
+          [ngStyle]="{ 'background-color': '#FFFFF0', color: '#4169E1' }"
+          (click)="openDialog('add')"
+        >
+          <i
+            class="fas fa-plus-circle"
+            [ngStyle]="{ 'font-size': '1.5rem' }"
+          ></i>
+        </mat-card>
       </mat-card>
       <mat-card
         class="card park-card-ref d-flex flex-row justify-content-end g-5"
