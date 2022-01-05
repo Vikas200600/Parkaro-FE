@@ -10,6 +10,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+<<<<<<< Updated upstream
+=======
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+>>>>>>> Stashed changes
 
 const requiredModule = [
   MatCardModule,
@@ -21,6 +27,12 @@ const requiredModule = [
   MatSortModule,
   MatPaginatorModule,
   MatSnackBarModule,
+<<<<<<< Updated upstream
+=======
+  MatDialogModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+>>>>>>> Stashed changes
 ];
 
 @NgModule({

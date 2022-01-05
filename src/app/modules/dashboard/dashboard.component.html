@@ -7,15 +7,15 @@
             class="park-card-item ms-2 mb-2 d-flex justify-content-center align-items-center"
             [ngStyle]="{
               'background-color': lotData[lotId].available
-                ? '#57ad68'
+                ? bgColors['availableColor']
                 : lotData[lotId].availableTime
                 ? lotData[lotId].availableTime - getNow() <= 900000 &&
                   lotData[lotId].availableTime - getNow() > 0
-                  ? '#ff7802'
+                  ? bgColors['availableSoonColor']
                   : lotData[lotId].availableTime - getNow() < 0
-                  ? '#ac191b'
-                  : '#68a6c2'
-                : '#68a6c2'
+                  ? bgColors['overParkedColor']
+                  : bgColors['occupiedColor']
+                : bgColors['occupiedColor']
             }"
           >
             <h2 class="m-0">{{ lotData[lotId].lotName }}</h2>
@@ -28,10 +28,11 @@
       <mat-card
         class="card park-card-ref d-flex flex-row justify-content-end g-5"
       >
-        <h5>Occupied</h5>
-        <h5>Available</h5>
-        <h5>Available Soon</h5>
-        <h5>Over Parked</h5>
+        <h5 (click)="filterSelected('occupiedColor')">Occupied</h5>
+        <h5 (click)="filterSelected('availableColor')">Available</h5>
+        <h5 (click)="filterSelected('availableSoonColor')">Available Soon</h5>
+        <h5 (click)="filterSelected('overParkedColor')">Over Parked</h5>
+        <h5 (click)="resetColors()"><i class="fas fa-sync-alt"></i></h5>
       </mat-card>
     </div>
     <div class="col-3">

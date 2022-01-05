@@ -12,6 +12,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   today: Date = new Date();
   time: string = new Date().toTimeString().split(' ')[0];
+  bgColors: object = {
+    occupiedColor: '#68a6c2',
+    availableColor: '#57ad68',
+    availableSoonColor: '#ff7802',
+    overParkedColor: '#ac191b',
+  };
 
   occupied: number = 0;
   available: number = 0;
@@ -52,6 +58,46 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return Date.now();
   }
 
+<<<<<<< Updated upstream
+=======
+  openDialog(caseString: string, lotDeatails?: object) {
+    switch (caseString) {
+      case 'add':
+        this.dialog.open(AddParkingComponent);
+        break;
+      case 'allot':
+        this.dialog.open(AllotParkingComponent, {
+          data: { lotName: lotDeatails['lotName'], type: lotDeatails['type'] },
+        });
+        break;
+      case 'deallot':
+        this.dialog.open(DeallotParkingComponent, {
+          data: { id: lotDeatails['parkingId'] },
+        });
+        break;
+    }
+  }
+
+  filterSelected(action: string) {
+    const disabledColor = '#edf5e1';
+    this.resetColors();
+    for (let key in this.bgColors) {
+      if (key !== action) {
+        this.bgColors[key] = disabledColor;
+      }
+    }
+  }
+
+  resetColors() {
+    this.bgColors = {
+      occupiedColor: '#68a6c2',
+      availableColor: '#57ad68',
+      availableSoonColor: '#ff7802',
+      overParkedColor: '#ac191b',
+    };
+  }
+
+>>>>>>> Stashed changes
   ngOnInit(): void {
     setInterval(() => {
       this.time = new Date().toTimeString().split(' ')[0];

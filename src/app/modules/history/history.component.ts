@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -23,7 +24,8 @@ export class HistoryComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<object>;
   headers: string[] = [
     'id',
-    'parkingDate',
+    'parkingInDate',
+    'parkingOutDate',
     'regNo',
     'type',
     'lotName',
@@ -31,15 +33,17 @@ export class HistoryComponent implements OnInit, OnDestroy {
     'parkingOutStamp',
     'price',
   ];
+  range: FormGroup;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(
-    private lotService: LotService,
-    private cdr: ChangeDetectorRef,
-    private _liveAnnouncer: LiveAnnouncer
-  ) {}
+  constructor(private lotService: LotService, private fb: FormBuilder) {
+    this.range = fb.group({
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     this.lotService.fetchUpdatedParks();
@@ -68,6 +72,18 @@ export class HistoryComponent implements OnInit, OnDestroy {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyDateFilter() {
+    if (this.range.valid) {
+      this.setParkData();
+      this.dataSource.data = this.dataSource.data.filter((data) => {
+        return (
+          data['parkingInStamp'] >= Date.parse(this.range.value.startDate) &&
+          data['parkingInStamp'] <= Date.parse(this.range.value.endDate)
+        );
+      });
+    }
   }
 
   getTimeString(timeStamp: number) {
