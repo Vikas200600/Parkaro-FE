@@ -2,17 +2,6 @@ table {
   width: 100%;
 }
 
-.mat-column {
-  &-parkingDate,
-  &-regNo,
-  &-type,
-  &-lotName,
-  &-parkingInStamp,
-  &-parkingOutStamp {
-    text-align: center;
-  }
-}
-
-.mat-row {
+.nodata-define {
   text-align: center;
 }

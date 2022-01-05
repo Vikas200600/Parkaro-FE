@@ -5,17 +5,11 @@
 }
 
 .park-card {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 12px;
   &-item {
     color: white;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 90px;
+    width: 70px;
     &-type {
-      position: absolute;
       bottom: 0;
       right: 0;
     }
