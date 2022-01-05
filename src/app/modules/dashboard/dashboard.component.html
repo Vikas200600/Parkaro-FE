@@ -10,9 +10,11 @@
                 ? '#57ad68'
                 : lotData[lotId].availableTime
                 ? lotData[lotId].availableTime - getNow() <= 900000 &&
-                  lotData[lotId].availableTime - getNow() > 900000
+                  lotData[lotId].availableTime - getNow() > 0
                   ? '#ff7802'
-                  : '#ac191b'
+                  : lotData[lotId].availableTime - getNow() < 0
+                  ? '#ac191b'
+                  : '#68a6c2'
                 : '#68a6c2'
             }"
             (click)="
