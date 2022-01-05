@@ -1,5 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
+import { AddParkingComponent } from 'src/app/components/dialogs/add-parking/add-parking.component';
+import { AllotParkingComponent } from 'src/app/components/dialogs/allot-parking/allot-parking.component';
+import { DeallotParkingComponent } from 'src/app/components/dialogs/deallot-parking/deallot-parking.component';
 import { LotService } from 'src/app/services/lot.service';
 
 @Component({
@@ -26,7 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   lotData: object;
 
-  constructor(private lotService: LotService) {}
+  constructor(private lotService: LotService, public dialog: MatDialog) {}
 
   setLotData() {
     this.lotService.lotSubject$
@@ -58,8 +62,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return Date.now();
   }
 
-<<<<<<< Updated upstream
-=======
   openDialog(caseString: string, lotDeatails?: object) {
     switch (caseString) {
       case 'add':
@@ -97,7 +99,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
   }
 
->>>>>>> Stashed changes
   ngOnInit(): void {
     setInterval(() => {
       this.time = new Date().toTimeString().split(' ')[0];

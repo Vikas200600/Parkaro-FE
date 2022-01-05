@@ -1,0 +1,34 @@
+<mat-dialog-content class="form">
+  <mat-card-header><h2>Add Parking Lot</h2></mat-card-header>
+  <form [formGroup]="addForm">
+    <mat-card-content class="d-flex flex-column">
+      <mat-form-field appearance="outline">
+        <mat-label>Lot Name</mat-label>
+        <input matInput autocomplete="off" formControlName="lotName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Select Vehicle Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let type of typeData" [value]="type">{{
+            type
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-dialog-actions align="center">
+        <button
+          mat-raised-button
+          mat-dialog-close
+          color="primary"
+          class="me-1"
+          [disabled]="!addForm.valid"
+          (click)="submitParking()"
+        >
+          SUBMIT
+        </button>
+        <button mat-raised-button mat-dialog-close class="ms-1">Cancel</button>
+      </mat-dialog-actions>
+    </mat-card-content>
+  </form>
+</mat-dialog-content>
