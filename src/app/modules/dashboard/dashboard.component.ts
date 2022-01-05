@@ -28,14 +28,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe((lotData) => {
         this.lotData = lotData;
         if (this.lotData['keys'] && this.lotData['keys'].length) {
+          this.occupied = 0;
+          this.available = 0;
+          this.availableSoon = 0;
+          this.overParked = 0;
           this.lotData['keys'].forEach((key) => {
             this.lotData[key].available
               ? this.available++
               : this.lotData[key].availableTime
               ? this.lotData[key].availableTime - this.getNow() <= 900000 &&
-                this.lotData[key].availableTime - this.getNow() > 900000
+                this.lotData[key].availableTime - this.getNow() > 0
                 ? this.availableSoon++
-                : this.overParked++
+                : lotData[key].availableTime - this.getNow() < 0
+                ? this.overParked++
+                : this.occupied++
               : this.occupied++;
           });
         }
